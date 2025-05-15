@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { motion } from 'framer-motion';
+
 import { faTv, faMobile, faLaptop, faTshirt, faHome, faGamepad, faBicycle, faTools, faHdd } from '@fortawesome/free-solid-svg-icons';
 
 export default function Detail() {
   const [activeCategory, setActiveCategory] = useState('electronics');
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const [cart, setCart] = useState([]); // State for cart
 
   const products = {
     electronics: [
@@ -45,18 +48,31 @@ export default function Detail() {
     ]
   };
 
+  const addToCart = (item) => {
+    setCart((prevCart) => [...prevCart, item]); // Adds the selected item to the cart
+  };
+
   return (
     <div className='detail-container flex flex-col md:flex-row'>
       <div className='relative md:w-1/4 p-4 border-b md:border-r border-gray-300'>
-        <button onClick={() => setIsCategoryOpen(!isCategoryOpen)} className='md:hidden bg-blue-500 text-white px-4 py-2 rounded'>Categories</button>
+        <motion.button 
+          onClick={() => setIsCategoryOpen(!isCategoryOpen)} 
+          className='md:hidden bg-blue-500 text-white px-4 py-2 rounded'
+          whileTap={{ scale: 0.95 }}>
+          Categories
+        </motion.button>
 
         <div className={`${isCategoryOpen ? 'block' : 'hidden'} md:block`}>        
           <h2 className='text-xl font-bold mb-4'>Categories</h2>
           {Object.keys(products).map((category) => (
-            <button key={category} onClick={() => { setActiveCategory(category); setIsCategoryOpen(false); }} className={`block w-full text-left p-2 ${activeCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+            <motion.button 
+              key={category} 
+              onClick={() => { setActiveCategory(category); setIsCategoryOpen(false); }}
+              className={`block w-full text-left p-2 ${activeCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+              whileHover={{ scale: 1.05 }}>
               <FontAwesomeIcon icon={products[category][0]?.icon} className='mr-2' />
               {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -65,15 +81,25 @@ export default function Detail() {
         <h3 className='text-center font-bold'>{activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Products</h3>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4'>
           {products[activeCategory]?.map((item) => (
-            <div key={item.id} className='p-4 bg-white rounded-xl shadow-lg hover:shadow-2xl transition-transform transform hover:scale-105'>
+            <motion.div 
+              key={item.id} 
+              className='p-4 bg-white rounded-xl shadow-lg'
+              whileHover={{ scale: 1.05, rotate: 1 }}>
               <img src={item.image} alt={item.name} className='w-full h-40 object-cover rounded-md mb-2' />
               <h4 className='font-bold text-lg'>{item.name}</h4>
               <p className='text-gray-600'>${item.price}</p>
-              <button className='mt-2 bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600 transition'>Add to Cart</button>
-            </div>
+              <motion.button 
+                className='mt-2 bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600' 
+                whileTap={{ scale: 0.9 }}
+                onClick={() => addToCart(item)}> {/* Added onClick to trigger addToCart */}
+                Add to Cart
+              </motion.button>
+            </motion.div>
           ))}
         </div>
       </div>
+
+      
     </div>
   );
 }

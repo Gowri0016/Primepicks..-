@@ -1,15 +1,17 @@
 
 import { Route, Routes } from 'react-router';
 import './App.css';
-import Detail from './Component/Detail';
-import Header from './Component/Header';
-import Footer from './Component/Footer';
-import Aboutus from './Component/Aboutus';
-import Services from './Component/Services';
-import Login from './Component/Login';
-import Notfound from './Component/Notfound';
-import CreateAcc from './Component/CreateAcc';
-
+import Detail from './Overall/Components/Detail';
+import Header from './Overall/Components/Header';
+import Footer from './Overall/Components/Footer';
+import Aboutus from './Overall/Components/Aboutus';
+import Services from './Overall/Pages/Services';
+import Login from './Overall/Pages/Login';
+import Notfound from './Overall/Pages/Notfound';
+import CreateAcc from './Overall/Pages/CreateAcc';
+import ChatBox from './Overall/Pages/ChatBox';
+import Contact from './Overall/Pages/Contact';
+import Delivery from './Overall/Pages/Delivery'
 function App() {
   return (
     <div className="App">
@@ -18,11 +20,14 @@ function App() {
       <Routes>
         <Route path="*" element={<Notfound />} /> 
         <Route path="/" element={<Detail />} />
+        <Route path="/ChatBox" element={<ChatBox />} />
+        <Route path="/Delivery" element={<Delivery />} />
+        <Route path="/Contact" element={<Contact />} />
         <Route path="/Aboutus" element={<Aboutus />} />
         <Route path="/CreateAcc" element={<CreateAcc />} />
         <Route path="/Services" element={<Services />} />
         <Route path="/Login" element={<Login />} />
-      </Routes>
+      </Routes> 
       <Footer />
     </div>
   );
