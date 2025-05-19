@@ -1,41 +1,31 @@
 import React from "react";
-import logo from "../../Asset/Primepick.png"; // Ensure the path is correct
-
-const Prime = "Some Text"; // Define it properly
-
+import { Link } from "react-router-dom";
+import logo from "../../Asset/Primepick.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-r from-orange-400 to-orange-600 text-white py-8 px-4 shadow-lg">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div>
-         <img src={Prime} alt="Logo" />
-
-        <p className="text-sm">Your one-stop destination for quality products delivered at your doorstep.</p>
+    <footer className="relative bg-black text-white py-12 px-4 shadow-2xl rounded-t-3xl overflow-hidden">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+        <div className="transform hover:scale-105 transition duration-300">
+          <img src={logo} alt="Logo" className="w-24 h-24 object-contain drop-shadow-3xl" />
+          <p className="text-sm mt-3 drop-shadow-lg">
+            Your one-stop destination for quality products delivered at your doorstep.
+          </p>
         </div>
 
-        <div>
-          <h3 className="text-xl font-semibold mb-2">Quick Links</h3>
+        <div className="transform hover:scale-105 transition duration-300">
+          <h3 className="text-2xl font-semibold mb-3 drop-shadow-lg">Quick Links</h3>
           <ul className="space-y-2">
-            <li><a href="/Aboutus" className="hover:underline">About Us</a></li>
-            <li><a href="/Services" className="hover:underline">Services</a></li>
-            <li><a href="/Contact" className="hover:underline">Contact</a></li>
-            <li><a href="/privacy" className="hover:underline">Privacy Policy</a></li>
+            <li><Link to="/Aboutus" className="hover:underline">About Us</Link></li>
+            <li><Link to="/Services" className="hover:underline">Services</Link></li>
+            <li><Link to="/Contact" className="hover:underline">Contact</Link></li>
+            <li><Link to="/privacy" className="hover:underline">Privacy Policy</Link></li>
           </ul>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-semibold mb-2">Follow Us</h3>
-          <div className="flex gap-4">
-            <a href="#" className="hover:scale-110 transition">🌐</a>
-            <a href="#" className="hover:scale-110 transition">📘</a>
-            <a href="#" className="hover:scale-110 transition">🐦</a>
-            <a href="#" className="hover:scale-110 transition">📸</a>
-          </div>
         </div>
       </div>
 
-      <div className="text-center text-sm mt-6">© 2025 PrimePick. All rights reserved.</div>
+      <div className="absolute inset-0 bg-gradient-to-r from-green-700 to-lime-400 opacity-20 blur-3xl"></div>
+      <div className="text-center text-sm mt-6 relative z-10">© 2025 PrimePick. All rights reserved.</div>
     </footer>
   );
 }

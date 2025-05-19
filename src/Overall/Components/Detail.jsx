@@ -1,105 +1,92 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import img1 from '../../Asset/Dasbord.png';
+import img2 from '../../Asset/Pixel-b.png';
+import img3 from '../../Asset/Plb.png';
+import img4 from '../../Asset/Plm.png';
+import img5 from '../../Asset/Pixel.png';
 
-import { faTv, faMobile, faLaptop, faTshirt, faHome, faGamepad, faBicycle, faTools, faHdd } from '@fortawesome/free-solid-svg-icons';
+const slides = [
+  { image: img1, title: 'GEXUS', desc: 'LM' },
+  { image: img2, title: 'GEXUS', desc: 'VIP' },
+  { image: img3, title: 'GEXUS', desc: 'VIP' },
+  { image: img4, title: 'GEXUS', desc: 'VIP' },
+  { image: img5, title: 'GEXUS', desc: 'VIP' },
+];
 
-export default function Detail() {
-  const [activeCategory, setActiveCategory] = useState('electronics');
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
-  const [cart, setCart] = useState([]); // State for cart
+export default function Header() {
+  const [current, setCurrent] = useState(0);
 
-  const products = {
-    electronics: [
-      { id: 1, name: 'Smart TV', price: 1200, image: 'https://via.placeholder.com/100', icon: faTv },
-      { id: 2, name: 'Bluetooth Speaker', price: 100, image: 'https://via.placeholder.com/100', icon: faTv }
-    ],
-    mobiles: [
-      { id: 3, name: 'iPhone 13', price: 999, image: 'https://via.placeholder.com/100', icon: faMobile },
-      { id: 4, name: 'Samsung Galaxy S21', price: 899, image: 'https://via.placeholder.com/100', icon: faMobile }
-    ],
-    laptops: [
-      { id: 5, name: 'MacBook Pro', price: 1500, image: 'https://via.placeholder.com/100', icon: faLaptop },
-      { id: 6, name: 'Dell Inspiron', price: 800, image: 'https://via.placeholder.com/100', icon: faLaptop }
-    ],
-    clothing: [
-      { id: 7, name: 'T-Shirt', price: 20, image: 'https://via.placeholder.com/100', icon: faTshirt },
-      { id: 8, name: 'Jeans', price: 40, image: 'https://via.placeholder.com/100', icon: faTshirt }
-    ],
-    home: [
-      { id: 9, name: 'Washing Machine', price: 500, image: 'https://via.placeholder.com/100', icon: faHome },
-      { id: 10, name: 'Refrigerator', price: 700, image: 'https://via.placeholder.com/100', icon: faHome }
-    ],
-    gaming: [
-      { id: 11, name: 'Gaming Console', price: 300, image: 'https://via.placeholder.com/100', icon: faGamepad },
-      { id: 12, name: 'VR Headset', price: 200, image: 'https://via.placeholder.com/100', icon: faGamepad }
-    ],
-    sports: [
-      { id: 13, name: 'Bicycle', price: 150, image: 'https://via.placeholder.com/100', icon: faBicycle },
-      { id: 14, name: 'Yoga Mat', price: 30, image: 'https://via.placeholder.com/100', icon: faBicycle }
-    ],
-    tools: [
-      { id: 15, name: 'Drill Machine', price: 80, image: 'https://via.placeholder.com/100', icon: faTools },
-      { id: 16, name: 'Screwdriver Set', price: 15, image: 'https://via.placeholder.com/100', icon: faTools }
-    ],
-    storage: [
-      { id: 17, name: 'External Hard Drive', price: 100, image: 'https://via.placeholder.com/100', icon: faHdd },
-      { id: 18, name: 'USB Drive', price: 10, image: 'https://via.placeholder.com/100', icon: faHdd }
-    ]
+  // Go to previous slide
+  const prevSlide = () => {
+    setCurrent(current === 0 ? slides.length - 1 : current - 1);
   };
 
-  const addToCart = (item) => {
-    setCart((prevCart) => [...prevCart, item]); // Adds the selected item to the cart
+  // Go to next slide
+  const nextSlide = () => {
+    setCurrent(current === slides.length - 1 ? 0 : current + 1);
   };
+
+  // Auto-slide effect using useEffect and setInterval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide(); // Move to the next slide automatically every 3 seconds
+    }, 3000); // Change slide every 3 seconds (3000 ms)
+
+    return () => clearInterval(interval); // Clear interval when component unmounts
+  }, [current]);
 
   return (
-    <div className='detail-container flex flex-col md:flex-row'>
-      <div className='relative md:w-1/4 p-4 border-b md:border-r border-gray-300'>
-        <motion.button 
-          onClick={() => setIsCategoryOpen(!isCategoryOpen)} 
-          className='md:hidden bg-blue-500 text-white px-4 py-2 rounded'
-          whileTap={{ scale: 0.95 }}>
-          Categories
-        </motion.button>
+    <div>
+      <div className="flex flex-cols-2 gap-12 mt-12 mx-60">
+        <ul className="font-extralight grid grid-cols-1 gap-3">
+          <li><a href="#">Women's Fashion</a></li>
+          <li><a href="#">Men's Fashion</a></li>
+          <li><a href="#">Electronics</a></li>
+          <li><a href="#">Home & Lifestyle</a></li>
+          <li><a href="#">Machinery</a></li>
+          <li><a href="#">Sports & Outdoors</a></li>
+          <li><a href="#">Baby & Toys</a></li>
+          <li><a href="#">Groceries & Pet Supplies</a></li>
+          <li><a href="#">Health & Beauty</a></li>
+        </ul>
 
-        <div className={`${isCategoryOpen ? 'block' : 'hidden'} md:block`}>        
-          <h2 className='text-xl font-bold mb-4'>Categories</h2>
-          {Object.keys(products).map((category) => (
-            <motion.button 
-              key={category} 
-              onClick={() => { setActiveCategory(category); setIsCategoryOpen(false); }}
-              className={`block w-full text-left p-2 ${activeCategory === category ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
-              whileHover={{ scale: 1.05 }}>
-              <FontAwesomeIcon icon={products[category][0]?.icon} className='mr-2' />
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </motion.button>
-          ))}
-        </div>
+              <div className="w-[800px] h-[400px] relative s overflow-hidden rounded-xl shadow-lg mx-auto">
+                  <div
+                      className="flex transition-transform duration-1000 ease-in-out"
+                      style={{
+                          transform: `translateX(-${current * 800}px)`, // Move each image by 600px
+                          width: `${slides.length * 800}px`, // Container width should be the total of all slides
+                      }}
+                  >
+                      {slides.map((slide, index) => (
+                          <div
+                              key={index}
+                              className="w-[800px] h-[400px] flex-shrink-0 bg-center bg-cover"
+                              style={{ backgroundImage: `url(${slide.image})` }}
+                          />
+                      ))}
+                  </div>
+
+                  {/* Navigation Buttons */}
+                  <div className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10">
+                      <button
+                          onClick={prevSlide}
+                          className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
+                      >
+                          <i className="fa-solid fa-chevron-left text-xl" />
+                      </button>
+                  </div>
+
+                  <div className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10">
+                      <button
+                          onClick={nextSlide}
+                          className="bg-white p-2 rounded-full shadow hover:bg-gray-100"
+                      >
+                          <i className="fa-solid fa-chevron-right text-xl" />
+                      </button>
+                  </div>
+              </div>
       </div>
-
-      <div className='cart-items w-full md:w-3/4 p-4'>
-        <h3 className='text-center font-bold'>{activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)} Products</h3>
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-4'>
-          {products[activeCategory]?.map((item) => (
-            <motion.div 
-              key={item.id} 
-              className='p-4 bg-white rounded-xl shadow-lg'
-              whileHover={{ scale: 1.05, rotate: 1 }}>
-              <img src={item.image} alt={item.name} className='w-full h-40 object-cover rounded-md mb-2' />
-              <h4 className='font-bold text-lg'>{item.name}</h4>
-              <p className='text-gray-600'>${item.price}</p>
-              <motion.button 
-                className='mt-2 bg-blue-500 text-white py-1 px-4 rounded hover:bg-blue-600' 
-                whileTap={{ scale: 0.9 }}
-                onClick={() => addToCart(item)}> {/* Added onClick to trigger addToCart */}
-                Add to Cart
-              </motion.button>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      
     </div>
   );
 }

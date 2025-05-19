@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChatBubbleLeftIcon } from '@heroicons/react/24/outline';
 
-export default function LoginWithChat() {
+export default function LoginWithChat3D() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
@@ -11,18 +11,11 @@ export default function LoginWithChat() {
 
   const validateForm = () => {
     const newErrors = {};
+    if (!email.trim()) newErrors.email = 'Email is required';
+    else if (!/^[\w.-]+@[\w.-]+\.\w{2,4}$/.test(email)) newErrors.email = 'Invalid email format';
 
-    if (!email) {
-      newErrors.email = 'Email is required';
-    } else if (!/^[\w.-]+@[\w.-]+\.\w{2,4}$/.test(email)) {
-      newErrors.email = 'Invalid email format';
-    }
-
-    if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters long';
-    }
+    if (!password.trim()) newErrors.password = 'Password is required';
+    else if (password.length < 6) newErrors.password = 'Password must be at least 6 characters long';
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -41,87 +34,38 @@ export default function LoginWithChat() {
       setInput('');
       setTimeout(() => {
         setMessages((prev) => [...prev, { text: 'AI: How can I assist you today?', sender: 'ai' }]);
-      }, 1000);
+      }, 700);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 relative">
-      {/* Login Form */}
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md mb-8">
-        <div className="flex justify-center mb-4">
-          <img src="https://via.placeholder.com/150" alt="Logo" className="h-16" />
-        </div>
-        <h2 className="text-2xl font-bold mb-4 text-center">Login</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white">
+      <div className="bg-white p-8 rounded-3xl shadow-xl w-full max-w-md transition-transform duration-300 transform-gpu hover:scale-105">
+        <h2 className="text-3xl font-bold mb-6 text-center">Secure Login</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 font-semibold">Email</label>
-            <input
-              type="email"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
-          </div>
-
-          <div>
-            <label className="block mb-1 font-semibold">Password</label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
-          </div>
-
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">
-            Login
-          </button>
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="block w-full p-3 rounded-md shadow-md focus:ring-2 focus:ring-indigo-400" />
+          {errors.email && <p className="text-red-500">{errors.email}</p>}
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="block w-full p-3 rounded-md shadow-md focus:ring-2 focus:ring-indigo-400" />
+          {errors.password && <p className="text-red-500">{errors.password}</p>}
+          <button type="submit" className="w-full py-3 bg-indigo-600 text-white rounded-xl shadow-xl transform hover:scale-105 transition">Login</button>
         </form>
-
-        <div className="mt-4 text-center">
-          <a href="#" className="text-blue-500 hover:underline">Forgot Password?</a>
-          <p className="mt-2">Don't have an account? <a href="CreateAcc" className="text-blue-500 hover:underline">Create Account</a></p>
-        </div>
       </div>
 
-      {/* Chatbox Button */}
-      <button
-        onClick={() => setChatOpen(!chatOpen)}
-        className="fixed bottom-4 right-4 bg-blue-500 text-white p-3 rounded-full shadow-lg hover:bg-blue-600"
-      >
+      <button onClick={() => setChatOpen(!chatOpen)} className="fixed bottom-4 right-4 bg-indigo-600 text-white p-4 rounded-full shadow-lg">
         <ChatBubbleLeftIcon className="h-6 w-6" />
       </button>
 
-      {/* Chatbox Popup */}
       {chatOpen && (
-        <div className="fixed bottom-16 right-4 w-80 bg-white p-4 rounded-lg shadow-md">
-          <div className="flex items-center justify-between p-4 bg-blue-500 text-white">
-            <h2 className="text-lg font-semibold">Chat with Us</h2>
-            <ChatBubbleLeftIcon className="h-6 w-6" />
-          </div>
-          <div className="p-4 h-64 overflow-y-auto">
+        <div className="fixed bottom-20 right-4 bg-white p-6 rounded-xl shadow-xl w-80">
+          <h3 className="text-xl font-semibold mb-4">Chat Support</h3>
+          <div className="h-40 overflow-y-auto mb-4">
             {messages.map((msg, index) => (
-              <div key={index} className={`my-2 ${msg.sender === 'user' ? 'text-right' : 'text-left'}`}>
-                <span className={`inline-block p-2 rounded-lg ${msg.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
-                  {msg.text}
-                </span>
-              </div>
+              <p key={index} className={`${msg.sender === 'user' ? 'text-right text-blue-600' : 'text-left text-gray-700'}`}>{msg.text}</p>
             ))}
           </div>
-          <div className="flex p-4">
-            <input
-              type="text"
-              className="flex-1 border rounded-lg p-2"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message..."
-            />
-            <button onClick={handleSend} className="ml-2 bg-blue-500 text-white rounded-lg p-2">
-              Send
-            </button>
+          <div className="flex">
+            <input type="text" value={input} onChange={(e) => setInput(e.target.value)} className="flex-1 p-2 border rounded-l-md" />
+            <button onClick={handleSend} className="bg-indigo-600 text-white px-4 rounded-r-md">Send</button>
           </div>
         </div>
       )}

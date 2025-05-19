@@ -10,8 +10,8 @@ import Login from './Overall/Pages/Login';
 import Notfound from './Overall/Pages/Notfound';
 import CreateAcc from './Overall/Pages/CreateAcc';
 import ChatBox from './Overall/Pages/ChatBox';
-import Contact from './Overall/Pages/Contact';
-import Delivery from './Overall/Pages/Delivery'
+import Contact from './Overall/Components/Contact';
+import Delivery from './Overall/Pages/Delivery';
 function App() {
   return (
     <div className="App">
