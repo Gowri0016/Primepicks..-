@@ -4,7 +4,7 @@ import logo from "../../Asset/Primepick.png";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-black text-white py-12 px-4 shadow-2xl rounded-t-3xl overflow-hidden">
+    <footer className="relative bg-black text-white py-12 px-4 shadow-2xl overflow-hidden">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
         <div className="transform hover:scale-105 transition duration-300">
           <img src={logo} alt="Logo" className="w-24 h-24 object-contain drop-shadow-3xl" />

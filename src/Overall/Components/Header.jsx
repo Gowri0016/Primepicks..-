@@ -12,7 +12,7 @@ export default function Header() {
       </div>
 
       <nav className="bg-white w-full h-20 shadow-xl p-3 flex justify-between items-center md:px-8 relative">
-        
+
          <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
           <FontAwesomeIcon icon={menuOpen ? faTimes : faBars} className="text-xl" />
         </button>
@@ -23,10 +23,10 @@ export default function Header() {
 
         <div className={`absolute md:static top-full left-0 w-full md:w-auto bg-white md:flex md:gap-5 transition-all duration-300 ${menuOpen ? 'block' : 'hidden md:block'}`}>
           <ul className="flex flex-col md:flex-row gap-4 md:gap-5 p-4 md:p-0">
-            <li><a className="no-underline hover:underline" href="#">Home</a></li>
+            <li><a className="no-underline hover:underline" href="/">Home</a></li>
             <li><a className="no-underline hover:underline" href="#">Contact</a></li>
             <li><a className="no-underline hover:underline" href="#">About</a></li>
-            <li><a className="no-underline hover:underline" href="#">Sign Up</a></li>
+            <li><a className="no-underline hover:underline" href="/Login">Sign Up</a></li>
           </ul>
         </div>
 
