@@ -9,7 +9,7 @@ export default function Login() {
       </div>
 
       <form className="mt-8 md:mt-0 w-full md:w-1/3 max-w-sm p-6 bg-white rounded-xl shadow-md">
-        <h1 className="text-3xl font-semibold mb-4">Log in to PixelPix</h1>
+        <h1 className="text-3xl mb-4">Log in to Poeage<span>Hub</span></h1>
         <p className="text-gray-600 mb-6">Enter your details below</p>
 
         <input

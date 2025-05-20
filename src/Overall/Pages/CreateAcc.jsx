@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CreateAccPage from '../../Asset/CreateAccPage.png';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function CreateAcc() {
   const [username, setUsername] = useState('');
@@ -23,32 +25,109 @@ export default function CreateAcc() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
       console.log('Account Created', { username, email, password });
+      // Proceed to create account...
     }
   };
 
+  const handleGoogleSignIn = () => {
+    console.log('Sign in with Google');
+    // Implement your Google Sign-In logic here
+  };
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-4 text-center">Create Account</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} className="w-full px-3 py-2 border rounded" />
-          {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
+    <div className="flex items-center min-h-screen bg-white">
+      <img className="w-1/2 hidden md:block" src={CreateAccPage} alt="Create Account" />
 
-          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-3 py-2 border rounded" />
-          {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+      <div className="bg-white p-8 rounded w-full max-w-md mx-auto">
+        <h2 className="text-3xl mb-4 text-left">Create an Account</h2>
+        <p className="text-left text-gray-600 mb-6">Enter your details below</p>
 
-          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-3 py-2 border rounded" />
-          {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+        <form onSubmit={handleFormSubmit} className="space-y-4">
+          {/* Username */}
+          <div>
+            <input
+              type="text"
+              placeholder="Username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full px-3 py-2 border-0 border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
+            />
+            {errors.username && <p className="text-red-500 text-sm mt-1">{errors.username}</p>}
+          </div>
 
-          <input type="password" placeholder="Confirm Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-3 py-2 border rounded" />
-          {errors.confirmPassword && <p className="text-red-500 text-sm">{errors.confirmPassword}</p>}
+          {/* Email */}
+          <div>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-3 py-2 border-0 border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
+            />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          </div>
 
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Create Account</button>
+          {/* Password */}
+          <div>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-3 py-2 border-0 border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
+            />
+            {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
+          </div>
+
+          {/* Confirm Password */}
+          <div>
+            <input
+              type="password"
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full px-3 py-2 border-0 border-b-2 border-gray-400 focus:outline-none focus:border-blue-500"
+            />
+            {errors.confirmPassword && <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>}
+          </div>
+
+          {/* Create Account Button */}
+          <button
+            type="submit"
+            className="w-full bg-gradient-to-r from-blue-500 to-black text-white p-2 rounded-md hover:bg-red-900 transition-colors"
+          >
+            Create Account
+          </button>
         </form>
+
+        {/* OR Divider */}
+        <div className="flex items-center my-4">
+          <div className="flex-grow h-px bg-gray-300"></div>
+          <span className="mx-2 text-gray-500 text-sm">OR</span>
+          <div className="flex-grow h-px bg-gray-300"></div>
+        </div>
+
+        {/* Google Sign-In */}
+        <button
+          type="button"
+          onClick={handleGoogleSignIn}
+          className="flex items-center justify-center gap-2 w-full border border-black text-black hover:text-white p-2 rounded-md hover:bg-gradient-to-r from-blue-500 to-black transition-colors"
+        >
+          <FcGoogle size={20} />
+          Sign in with Google
+        </button>
+
+        {/* Already have an account */}
+        <p className="text-center text-xs md:text-sm mt-4">
+          Already have an account?{' '}
+          <a href="/Login" className="underline text-blue-500 hover:text-blue-900">
+            Login
+          </a>
+        </p>
       </div>
     </div>
   );
