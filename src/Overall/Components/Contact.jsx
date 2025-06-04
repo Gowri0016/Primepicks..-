@@ -4,7 +4,7 @@ import { PhoneIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 export default function Contact() {
   return (
     <div className="min-h-screen bg-white px-6 py-12 lg:px-24">
-      <h2 className="text-3xl font-bold text-center text-blue-900 mb-12">Contact Us</h2>
+      <h2 className="text-5xl text-center text-blue-600 mb-12">Contact Us</h2>
 
       <div className="">
         {/* Left: Contact Info */}
@@ -17,7 +17,7 @@ export default function Contact() {
               <p className="text-sm font-medium mt-1 text-blue-900">+91 73580 39616</p>
             </div>
           </div>
-          <hr className="h-[1px] bg-gradient-to-r from-blue-400 to-purple-500 border-0" />
+          <hr className="h-[1px] bg-gradient-to-r from-blue-400 to-black border-0" />
 
           <div className="flex items-start gap-4 -scroll-mb-2">
             <EnvelopeIcon className="w-6 h-6 text-blue-600 mt-1" />
